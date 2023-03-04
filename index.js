@@ -36,9 +36,9 @@ setInterval(() => {
       let str = ""
       res.on("data", (chunk) => (str += chunk))
       res.on("end", () => {
-        const prices =
-          str &&
-          JSON.parse(str).data.length &&
+        const prices = str && JSON.parse(str)
+        Array.isArray(prices.data) &&
+          prices.data.length &&
           JSON.parse(str).data.map((item) => {
             return {
               id: item.id,
