@@ -36,9 +36,8 @@ setInterval(() => {
       let str = ""
       res.on("data", (chunk) => (str += chunk))
       res.on("end", () => {
-        const prices = str && JSON.parse(str)
-        Array.isArray(prices.data) &&
-          prices.data.length &&
+        const prices =
+          Array.isArray(JSON.parse(str)?.data) &&
           JSON.parse(str).data.map((item) => {
             return {
               id: item.id,
@@ -46,7 +45,7 @@ setInterval(() => {
               price: item.metrics.market_data.price_usd,
             }
           })
-        console.log(prices)
+        // console.log(prices)
         io.emit("crypto", prices)
       })
     })
